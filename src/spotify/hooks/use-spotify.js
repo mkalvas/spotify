@@ -10,6 +10,23 @@ const SCOPES = [
   'user-modify-playback-state',
 ];
 
+const storeLocalToken = (token) => {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem('spotify-controls-token', token);
+  } catch (e) {}
+};
+
+const getLocalToken = () => {
+  if (typeof window === 'undefined') return;
+  try {
+    const token = localStorage.getItem('spotify-controls-token');
+    if (token) return token;
+    return null;
+  } catch (e) {}
+  return null;
+};
+
 const navToAuth = () => {
   if (typeof window === 'undefined') return;
   let url = process.env.NEXT_PUBLIC_AUTH_ENDPOINT;
@@ -59,7 +76,7 @@ const initData = { spotify: {}, controls: {} };
 
 const usePlayback = (token) => {
   const [data, setData] = useState(initData);
-  const ref = useRef({ callback: () => {}, token });
+  const ref = useRef({ callback: () => {}, token: null });
 
   useEffect(() => {
     if (!ref.current || ref.current.token !== token) {
@@ -98,12 +115,16 @@ const usePlayback = (token) => {
 };
 
 const useSpotify = () => {
-  const [token, setToken] = useState(null);
+  const storedToken = getLocalToken();
+  const [token, setToken] = useState(storedToken);
   const spotify = usePlayback(token);
 
   useEffect(() => {
     const _token = getHash().access_token;
-    if (_token) setToken(_token);
+    if (_token) {
+      setToken(_token);
+      storeLocalToken(_token);
+    }
   }, []);
 
   return {
