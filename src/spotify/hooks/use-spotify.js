@@ -11,18 +11,18 @@ const SCOPES = [
 ];
 
 const navToAuth = () => {
-  if (typeof document === undefined) return;
+  if (typeof window === 'undefined') return;
   let url = process.env.NEXT_PUBLIC_AUTH_ENDPOINT;
   url += `?client_id=${process.env.NEXT_PUBLIC_CLIENT_ID}`;
   url += `&redirect_uri=${process.env.NEXT_PUBLIC_REDIRECT_URI}`;
   url += `&scope=${SCOPES.join('%20')}`;
   url += '&response_type=token&show_dialog=true';
-  document.location.href = url;
+  window.location.href = url;
 };
 
 const getHash = () => {
-  if (typeof document === undefined) return;
-  return document?.location.hash
+  if (typeof window === 'undefined') return;
+  return window?.location.hash
     .substring(1)
     .split('&')
     .reduce((acc, item) => {
