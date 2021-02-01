@@ -76,29 +76,42 @@ h3.artist {
 }
 
 .time {
-  margin: 0 1em;
+  display: flex;
+  margin: 0;
   font-weight: 100;
   font-size: 0.25em;
+  width: 10em;
+}
+
+.time.left {
+  justify-content: flex-start;
+  margin-right: 1em;
+}
+
+.time.right {
+  justify-content: flex-end;
+  margin-left: 1em;
 }
 
 .elapsed {
   height: 0.25em;
   margin-left: 0.25em;
   background-color: rgba(255, 255, 255, 0.9);
-  border-top-left-radius: 10em;
-  border-bottom-left-radius: 10em;
+  border-radius: 10em;
   margin: 0;
   transition: width 100ms ease-in-out;
+  position: absolute;
 }
 
 .remaining {
   height: 0.25em;
   margin-right: 0.25em;
   background-color: rgb(80, 85, 88);
-  border-top-right-radius: 10em;
-  border-bottom-right-radius: 10em;
+  border-radius: 10em;
   margin: 0;
   transition: width 1000ms ease-in-out;
+  width: 100%;
+  position: relative;
 }
 
 .control-buttons {

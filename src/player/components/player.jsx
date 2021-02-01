@@ -11,7 +11,6 @@ const Player = ({ spotify }) => {
   const humanPosition = parseMs(position);
   const humanDuration = parseMs(duration);
   const elapsedWidth = Math.floor((position / duration) * 100);
-  const remaingWidth = Math.ceil(((duration - position) / duration) * 100);
 
   return (
     <div className="player">
@@ -21,10 +20,14 @@ const Player = ({ spotify }) => {
         <h3 className="artist">{artist}</h3>
         {position && (
           <div className="progress">
-            <p className="time">{humanPosition}</p>
-            <div className="elapsed" style={{ width: elapsedWidth }}></div>
-            <div className="remaining" style={{ width: remaingWidth }}></div>
-            <p className="time">{humanDuration}</p>
+            <p className="time left">{humanPosition}</p>
+            <div className="remaining">
+              <div
+                className="elapsed"
+                style={{ width: `${elapsedWidth}%` }}
+              ></div>
+            </div>
+            <p className="time right">{humanDuration}</p>
           </div>
         )}
       </div>
