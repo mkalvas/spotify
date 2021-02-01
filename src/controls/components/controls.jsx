@@ -3,16 +3,6 @@ import { REPEAT } from 'src';
 import ControlButton from './control-button';
 import { ICONS } from './icon';
 
-const styles = (
-  <style jsx>{`
-    .control-buttons {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-  `}</style>
-);
-
 const Controls = ({ spotify }) => {
   const isRepeat = spotify.repeatState !== REPEAT.OFF;
   const isRepeatOne = isRepeat && spotify.repeatState === REPEAT.ONE;
@@ -35,30 +25,29 @@ const Controls = ({ spotify }) => {
 
   return (
     <div className="control-buttons">
-      {styles}
       <ControlButton
         dark
-        size={3.5}
+        size={2.5}
         icon={ICONS.SHUFFLE}
         dot={spotify.shuffleState}
         onClick={() => spotify.shuffle(!spotify.shuffleState)}
       />
       <ControlButton
         dark
-        size={4}
+        size={3}
         icon={ICONS.BACK}
         onClick={spotify.previous}
       />
       <ControlButton
         dark
-        size={5}
+        size={4}
         icon={spotify.isPlaying ? ICONS.PAUSE : ICONS.PLAY}
         onClick={spotify.isPlaying ? spotify.pause : spotify.play}
       />
-      <ControlButton dark size={4} icon={ICONS.NEXT} onClick={spotify.next} />
+      <ControlButton dark size={3} icon={ICONS.NEXT} onClick={spotify.next} />
       <ControlButton
         dark
-        size={3.5}
+        size={2.5}
         icon={isRepeatOne ? ICONS.REPEAT_ONE : ICONS.REPEAT}
         dot={isRepeat}
         onClick={() => cycleRepeat(spotify.repeatState)}
